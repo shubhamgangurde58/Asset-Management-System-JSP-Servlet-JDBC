@@ -30,5 +30,16 @@
   		<url-pattern>/LoginServlet</url-pattern>
   	</servlet-mapping>
   	
+  	<servlet>
+  		<servlet-name>AddAsset</servlet-name>
+  		<servlet-class>com.shubham.controller.AddAsset</servlet-class>
+  	</servlet>
+  	
+  	<servlet-mapping>
+  		<servlet-name>AddAsset</servlet-name>
+  		<url-pattern>/AddAsset</url-pattern>
+  	</servlet-mapping>
+  	
+  	
   
 </web-app>

@@ -1,164 +1,273 @@
+<%@page import="java.sql.*"%>
+
+<%@page import="com.shubham.dao.DBConnection"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+
+<%
+
+	String username = (String)session.getAttribute("username");
+
+	if(username == null){
+		response.sendRedirect("LoginPage.jsp");
+	}
+
+	Connection con = DBConnection.getConnection();
+
+	int totalAssets = 0;
+
+	PreparedStatement ps1 =
+	con.prepareStatement("select count(*) from assets");
+
+	ResultSet rs1 = ps1.executeQuery();
+
+	if(rs1.next()){
+		totalAssets = rs1.getInt(1);
+	}
+
+	int totalCategories = 0;
+
+	PreparedStatement ps2 =
+	con.prepareStatement("select count(distinct category) from assets");
+
+	ResultSet rs2 = ps2.executeQuery();
+
+	if(rs2.next()){
+		totalCategories = rs2.getInt(1);
+	}
+
+	int lowStock = 0;
+
+	PreparedStatement ps3 =
+	con.prepareStatement("select count(*) from assets where quantity < 5");
+
+	ResultSet rs3 = ps3.executeQuery();
+
+	if(rs3.next()){
+		lowStock = rs3.getInt(1);
+	}
+
+
+	int totalValue = 0;
+
+	PreparedStatement ps4 =
+	con.prepareStatement("select sum(price * quantity) from assets");
+
+	ResultSet rs4 = ps4.executeQuery();
+
+	if(rs4.next()){
+		totalValue = rs4.getInt(1);
+	}
+
+%>
+
 <html>
 <head>
 <meta charset="UTF-8">
 
-<title> Dashboard </title>
+<title>Dashboard</title>
 
 <link rel="stylesheet"
 
-href="<%=request.getContextPath()%>/CSS/dashboardCSS.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-
-<link rel="stylesheet"
-
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="stylesheet" href="CSS/Dashboard.css">
 
 </head>
 
 <body>
 
+<div class="container">
 
+	
 	<div class="sidebar">
 
-		<div class="logo-section">
+		<div class="logo">
 
 			<img src="https://cdn-icons-png.flaticon.com/512/2620/2620277.png">
 
-			<h2>AMS</h2>
+			<h1>AMS</h1>
 
 		</div>
 
-		<ul>
+		<div class="menu">
 
-			<li>
-				<a href="#">
-					<i class="fa-solid fa-house"></i>
-					Dashboard
-				</a>
-			</li>
+			<a href="DashboardPage.jsp">
+				<i class="fa-solid fa-house"></i>
+				Dashboard
+			</a>
 
-			<li>
-				<a href="addAsset.jsp">
-					<i class="fa-solid fa-plus"></i>
-					Add Asset
-				</a>
-			</li>
+			<a href="AddAsset.jsp">
+				<i class="fa-solid fa-plus"></i>
+				Add Asset
+			</a>
 
-			<li>
-				<a href="viewAsset.jsp">
-					<i class="fa-solid fa-eye"></i>
-					View Assets
-				</a>
-			</li>
+			<a href="ViewAsset.jsp">
+				<i class="fa-solid fa-eye"></i>
+				View Assets
+			</a>
 
-			<li>
-				<a href="updateAsset.jsp">
-					<i class="fa-solid fa-pen"></i>
-					Update Asset
-				</a>
-			</li>
+			<a href="UpdateAsset.jsp">
+				<i class="fa-solid fa-pen"></i>
+				Update Asset
+			</a>
 
-			<li>
-				<a href="#">
-					<i class="fa-solid fa-trash"></i>
-					Delete Asset
-				</a>
-			</li>
+			<a href="DeleteAsset.jsp">
+				<i class="fa-solid fa-trash"></i>
+				Delete Asset
+			</a>
 
-			<li>
-				<a href="login.jsp">
-					<i class="fa-solid fa-right-from-bracket"></i>
-					Logout
-				</a>
-			</li>
+			<a href="LogoutServlet">
+				<i class="fa-solid fa-right-from-bracket"></i>
+				Logout
+			</a>
 
-		</ul>
+		</div>
 
 	</div>
 
-	<div class="main-content">
+	
 
+	<div class="main">
+
+		
 
 		<div class="topbar">
 
 			<h1>Dashboard</h1>
 
-			<div class="admin">
-
+			<div class="profile">
 				<i class="fa-solid fa-user"></i>
-
-				<span>Admin</span>
-
+				<%= username %>
 			</div>
 
 		</div>
 
 
-		<div class="welcome-card">
+		<div class="banner">
 
-			<div class="welcome-text">
-			
-				<%@ page session="true" %>
+			<div class="banner-text">
 
-				<h2>Welcome, <%= session.getAttribute("username") %> </h2>
+				<h2>Welcome, <%= username %> 👋</h2>
 
 				<p>
-					Manage all your assets efficiently using
+					Manage your company assets efficiently using
 					the Asset Management System dashboard.
 				</p>
 
 			</div>
 
-			<img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png">
+			<div class="banner-image">
+
+				<img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png">
+
+			</div>
+
+		</div>
+
+		
+		<div class="cards">
+
+			<div class="card">
+
+				<i class="fa-solid fa-box"></i>
+
+				<h3>Total Assets</h3>
+
+				<p><%= totalAssets %></p>
+
+			</div>
+
+			<div class="card">
+
+				<i class="fa-solid fa-layer-group"></i>
+
+				<h3>Categories</h3>
+
+				<p><%= totalCategories %></p>
+
+			</div>
+
+			<div class="card">
+
+				<i class="fa-solid fa-triangle-exclamation"></i>
+
+				<h3>Low Stock</h3>
+
+				<p><%= lowStock %></p>
+
+			</div>
+
+			<div class="card">
+
+				<i class="fa-solid fa-indian-rupee-sign"></i>
+
+				<h3>Total Value</h3>
+
+				<p>₹<%= totalValue %></p>
+
+			</div>
 
 		</div>
 
 
-		<div class="card-container">
+		<div class="table-container">
 
-			<div class="card">
+			<h2>Recent Assets</h2>
 
-				<i class="fa-solid fa-plus"></i>
+			<table>
 
-				<h3>Add Asset</h3>
+				<tr>
+					<th>Asset Name</th>
+					<th>Category</th>
+					<th>Quantity</th>
+					<th>Price</th>
+				</tr>
 
-				<p>Add new assets into the system.</p>
+				<%
 
-			</div>
+					PreparedStatement ps5 =
+					con.prepareStatement("select * from assets");
 
-			<div class="card">
+					ResultSet rs5 = ps5.executeQuery();
 
-				<i class="fa-solid fa-eye"></i>
+					while(rs5.next()){
 
-				<h3>View Assets</h3>
+				%>
 
-				<p>View all available asset records.</p>
+				<tr>
 
-			</div>
+					<td>
+						<%= rs5.getString("assetName") %>
+					</td>
 
-			<div class="card">
+					<td>
+						<%= rs5.getString("category") %>
+					</td>
 
-				<i class="fa-solid fa-pen"></i>
+					<td>
+						<%= rs5.getInt("quantity") %>
+					</td>
 
-				<h3>Update Asset</h3>
+					<td>
+						₹<%= rs5.getInt("price") %>
+					</td>
 
-				<p>Edit and manage existing assets.</p>
+				</tr>
 
-			</div>
+				<%
+					}
+				%>
 
-			<div class="card">
-
-				<i class="fa-solid fa-trash"></i>
-
-				<h3>Delete Asset</h3>
-
-				<p>Remove unwanted assets from system.</p>
-
-			</div>
+			</table>
 
 		</div>
 
 	</div>
+
+</div>
 
 </body>
 </html>
