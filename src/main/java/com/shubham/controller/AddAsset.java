@@ -52,7 +52,7 @@ public class AddAsset  extends HttpServlet {
 
 					out.println("<script type='text/javascript'>");
 					out.println("alert('Asset Added Successfully!');");
-					out.println("location='AddAsset.jsp';");
+					out.println("location='DashboardPage.jsp';");
 					out.println("</script>");
 					System.out.println("Asset Added Successfully ! ");
 					

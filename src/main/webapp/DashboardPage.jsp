@@ -2,6 +2,7 @@
 
 <%@page import="com.shubham.dao.DBConnection"%>
 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -17,27 +18,33 @@
 	Connection con = DBConnection.getConnection();
 
 	int totalAssets = 0;
+	
 
 	PreparedStatement ps1 =
 	con.prepareStatement("select count(*) from assets");
+	
 
 	ResultSet rs1 = ps1.executeQuery();
 
 	if(rs1.next()){
 		totalAssets = rs1.getInt(1);
 	}
+	
 
 	int totalCategories = 0;
+	
 
 	PreparedStatement ps2 =
 	con.prepareStatement("select count(distinct category) from assets");
 
 	ResultSet rs2 = ps2.executeQuery();
+	
 
 	if(rs2.next()){
 		totalCategories = rs2.getInt(1);
 	}
 
+	
 	int lowStock = 0;
 
 	PreparedStatement ps3 =
@@ -65,32 +72,32 @@
 
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 
-<title>Dashboard</title>
+	<title>Dashboard</title>
 
-<link rel="stylesheet"
+	<link rel="stylesheet"
 
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<link rel="stylesheet" href="CSS/Dashboard.css">
+	<link rel="stylesheet" href="CSS/Dashboard.css">
 
-</head>
+	</head>
 
-<body>
+	<body>
 
-<div class="container">
+		<div class="container">
 
 	
-	<div class="sidebar">
+			<div class="sidebar">
 
-		<div class="logo">
+				<div class="logo">
 
-			<img src="https://cdn-icons-png.flaticon.com/512/2620/2620277.png">
+					<img src="https://cdn-icons-png.flaticon.com/512/2620/2620277.png">
 
-			<h1>AMS</h1>
+				<h1>AMS</h1>
 
-		</div>
+			</div>
 
 		<div class="menu">
 
@@ -140,7 +147,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 			<div class="profile">
 				<i class="fa-solid fa-user"></i>
+				
 				<%= username %>
+				
 			</div>
 
 		</div>

@@ -40,6 +40,46 @@
   		<url-pattern>/AddAsset</url-pattern>
   	</servlet-mapping>
   	
-  	
+  	<servlet>
+		<servlet-name>DeleteAsset</servlet-name>
+		<servlet-class>com.shubham.controller.DeleteAsset</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DeleteAsset</servlet-name>
+		<url-pattern>/DeleteAsset</url-pattern>
+	</servlet-mapping>
+  
+  
+  	<servlet>
+		<servlet-name>ExportExcelServlet</servlet-name>
+		<servlet-class>com.shubham.controller.ExportExcelServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ExportExcelServlet</servlet-name>
+		<url-pattern>/ExportExcelServlet</url-pattern>
+	</servlet-mapping>
+  
+  
+  	<servlet>
+		<servlet-name>UpdateAsset</servlet-name>	
+		<servlet-class>com.shubham.controller.UpdateAsset</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UpdateAsset</servlet-name>
+		<url-pattern>/UpdateAsset</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ViewAsset</servlet-name>	
+		<servlet-class>com.shubham.controller.ViewAsset</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ViewAsset</servlet-name>
+		<url-pattern>/ViewAsset</url-pattern>
+	</servlet-mapping>
   
 </web-app>
