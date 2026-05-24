@@ -81,5 +81,15 @@
 		<servlet-name>ViewAsset</servlet-name>
 		<url-pattern>/ViewAsset</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>LogoutServlet</servlet-name>
+	<servlet-class>com.shubham.controller.LogoutServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LogoutServlet</servlet-name>
+		<url-pattern>/LogoutServlet</url-pattern>
+	</servlet-mapping>
   
 </web-app>

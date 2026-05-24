@@ -56,8 +56,8 @@ public class ViewAsset extends HttpServlet {
 
 				query = "select * from assets";
 
-				pstmt = DBConnection.getConnection()
-						.prepareStatement(query);
+				pstmt = DBConnection.getConnection().prepareStatement(query);
+				
 			}
 
 			ResultSet rs = pstmt.executeQuery();
@@ -71,6 +71,7 @@ public class ViewAsset extends HttpServlet {
 
 		}catch(Exception e) {
 
+			System.out.println("ERROR in Connection "+e.getMessage());
 			e.printStackTrace();
 		}
 	}

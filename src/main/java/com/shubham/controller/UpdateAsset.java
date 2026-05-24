@@ -33,12 +33,9 @@ public class UpdateAsset extends HttpServlet {
 
 		try {
 
-			String query =
-			"update assets set assetName=?, category=?, price=?, quantity=?, purchaseDate=? where id=?";
+			String query = "update assets set assetName=?, category=?, price=?, quantity=?, purchaseDate=? where id=?";
 
-			PreparedStatement pstmt =
-			DBConnection.getConnection()
-			.prepareStatement(query);
+			PreparedStatement pstmt = DBConnection.getConnection().prepareStatement(query);
 
 			pstmt.setString(1, assetName);
 			pstmt.setString(2, category);

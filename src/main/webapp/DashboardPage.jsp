@@ -1,11 +1,10 @@
+
 <%@page import="java.sql.*"%>
 
 <%@page import="com.shubham.dao.DBConnection"%>
 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 
 <%
 
@@ -18,37 +17,30 @@
 	Connection con = DBConnection.getConnection();
 
 	int totalAssets = 0;
-	
 
-	PreparedStatement ps1 =
-	con.prepareStatement("select count(*) from assets");
-	
+	PreparedStatement ps1 = con.prepareStatement("select count(*) from assets");
 
 	ResultSet rs1 = ps1.executeQuery();
 
 	if(rs1.next()){
+		
 		totalAssets = rs1.getInt(1);
 	}
-	
 
 	int totalCategories = 0;
-	
 
-	PreparedStatement ps2 =
-	con.prepareStatement("select count(distinct category) from assets");
+	PreparedStatement ps2 = con.prepareStatement("select count(distinct category) from assets");
 
 	ResultSet rs2 = ps2.executeQuery();
-	
 
 	if(rs2.next()){
+		
 		totalCategories = rs2.getInt(1);
 	}
 
-	
 	int lowStock = 0;
 
-	PreparedStatement ps3 =
-	con.prepareStatement("select count(*) from assets where quantity < 5");
+	PreparedStatement ps3 = con.prepareStatement("select count(*) from assets where quantity < 5");
 
 	ResultSet rs3 = ps3.executeQuery();
 
@@ -56,52 +48,55 @@
 		lowStock = rs3.getInt(1);
 	}
 
-
 	int totalValue = 0;
 
-	PreparedStatement ps4 =
-	con.prepareStatement("select sum(price * quantity) from assets");
+	PreparedStatement ps4 = con.prepareStatement("select sum(price * quantity) from assets");
 
 	ResultSet rs4 = ps4.executeQuery();
 
 	if(rs4.next()){
+		
 		totalValue = rs4.getInt(1);
 	}
 
 %>
 
 <html>
-<head>
+
+	<head>
+
 	<meta charset="UTF-8">
 
 	<title>Dashboard</title>
 
 	<link rel="stylesheet"
-
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 	<link rel="stylesheet" href="CSS/Dashboard.css">
 
 	</head>
 
-	<body>
+<body>
 
-		<div class="container">
+<div class="container">
 
 	
-			<div class="sidebar">
 
-				<div class="logo">
+	<div class="sidebar">
 
-					<img src="https://cdn-icons-png.flaticon.com/512/2620/2620277.png">
+		<div class="logo">
 
-				<h1>AMS</h1>
+			<img src="https://cdn-icons-png.flaticon.com/512/2620/2620277.png">
 
-			</div>
+			<h1>AMS</h1>
+
+		</div>
 
 		<div class="menu">
+		
 
-			<a href="DashboardPage.jsp">
+			<a href="DashboardPage.jsp" class="active">
 				<i class="fa-solid fa-house"></i>
 				Dashboard
 			</a>
@@ -116,12 +111,12 @@
 				View Assets
 			</a>
 
-			<a href="UpdateAsset.jsp">
+			<a href="ViewAsset.jsp">
 				<i class="fa-solid fa-pen"></i>
 				Update Asset
 			</a>
 
-			<a href="DeleteAsset.jsp">
+			<a href="ViewAsset.jsp">
 				<i class="fa-solid fa-trash"></i>
 				Delete Asset
 			</a>
@@ -135,87 +130,137 @@
 
 	</div>
 
-	
 
 	<div class="main">
 
-		
+	
 
 		<div class="topbar">
 
-			<h1>Dashboard</h1>
+			<div>
+				<h1>Dashboard</h1>
+				<p class="sub-title">
+					Asset Management System Overview
+				</p>
+			</div>
 
 			<div class="profile">
+
 				<i class="fa-solid fa-user"></i>
-				
+
 				<%= username %>
-				
+
 			</div>
 
 		</div>
 
+	
 
-		<div class="banner">
+		<div class="hero-section">
 
-			<div class="banner-text">
+			<div class="hero-left">
 
-				<h2>Welcome, <%= username %> 👋</h2>
+				<h2>
+					Welcome Back,
+					<%= username %> 👋
+				</h2>
 
 				<p>
-					Manage your company assets efficiently using
-					the Asset Management System dashboard.
+					Track, manage and monitor all company assets
+					from one professional dashboard.
 				</p>
+
+				<div class="hero-buttons">
+
+					<a href="AddAsset.jsp" class="hero-btn add-btn">
+						<i class="fa-solid fa-plus"></i>
+						Add Asset
+					</a>
+
+					<a href="ViewAsset.jsp" class="hero-btn view-btn">
+						<i class="fa-solid fa-eye"></i>
+						View Assets
+					</a>
+
+				</div>
 
 			</div>
 
-			<div class="banner-image">
+			<div class="hero-right">
 
-				<img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png">
+			<img 
+					src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png"
+					class="hero-image">
 
 			</div>
 
 		</div>
 
-		
+	
+
 		<div class="cards">
 
 			<div class="card">
 
-				<i class="fa-solid fa-box"></i>
+				<div class="icon-box blue">
+					<i class="fa-solid fa-box"></i>
+				</div>
 
-				<h3>Total Assets</h3>
+				<div class="card-info">
 
-				<p><%= totalAssets %></p>
+					<h3>Total Assets</h3>
 
-			</div>
+					<p><%= totalAssets %></p>
 
-			<div class="card">
-
-				<i class="fa-solid fa-layer-group"></i>
-
-				<h3>Categories</h3>
-
-				<p><%= totalCategories %></p>
+				</div>
 
 			</div>
 
 			<div class="card">
 
-				<i class="fa-solid fa-triangle-exclamation"></i>
+				<div class="icon-box purple">
+					<i class="fa-solid fa-layer-group"></i>
+				</div>
 
-				<h3>Low Stock</h3>
+				<div class="card-info">
 
-				<p><%= lowStock %></p>
+					<h3>Categories</h3>
+
+					<p><%= totalCategories %></p>
+
+				</div>
 
 			</div>
 
 			<div class="card">
 
-				<i class="fa-solid fa-indian-rupee-sign"></i>
+				<div class="icon-box red">
+					<i class="fa-solid fa-triangle-exclamation"></i>
+				</div>
 
-				<h3>Total Value</h3>
+				<div class="card-info">
 
-				<p>₹<%= totalValue %></p>
+					<h3>Low Stock</h3>
+
+					<p><%= lowStock %></p>
+
+				</div>
+
+			</div>
+
+			<div class="card">
+
+				<div class="icon-box green">
+					<i class="fa-solid fa-indian-rupee-sign"></i>
+				</div>
+
+				<div class="card-info">
+
+					<h3>Total Value</h3>
+
+					<p>₹<%= totalValue %></p>
+
+				</div>
 
 			</div>
 
@@ -224,29 +269,53 @@
 
 		<div class="table-container">
 
-			<h2>Recent Assets</h2>
+			<div class="table-header">
+
+				<h2>Recent Added Assets</h2>
+
+				<a href="ViewAsset.jsp" class="view-all-btn">
+					View All
+				</a>
+
+			</div>
 
 			<table>
 
 				<tr>
+
+					<th>ID</th>
+
 					<th>Asset Name</th>
+
 					<th>Category</th>
+
 					<th>Quantity</th>
+
 					<th>Price</th>
+
+					<th>Status</th>
+
 				</tr>
 
 				<%
 
 					PreparedStatement ps5 =
-					con.prepareStatement("select * from assets");
+					con.prepareStatement(
+					"select * from assets order by id desc limit 5");
 
 					ResultSet rs5 = ps5.executeQuery();
 
 					while(rs5.next()){
 
+						int qty = rs5.getInt("quantity");
+
 				%>
 
 				<tr>
+
+					<td>
+						#<%= rs5.getInt("id") %>
+					</td>
 
 					<td>
 						<%= rs5.getString("assetName") %>
@@ -257,11 +326,35 @@
 					</td>
 
 					<td>
-						<%= rs5.getInt("quantity") %>
+						<%= qty %>
 					</td>
 
 					<td>
 						₹<%= rs5.getInt("price") %>
+					</td>
+
+					<td>
+
+						<%
+							if(qty < 5){
+						%>
+
+						<span class="status low">
+							Low Stock
+						</span>
+
+						<%
+							}else{
+						%>
+
+						<span class="status available">
+							Available
+						</span>
+
+						<%
+							}
+						%>
+
 					</td>
 
 				</tr>

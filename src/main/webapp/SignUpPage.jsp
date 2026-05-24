@@ -1,7 +1,9 @@
 
 <html>
 <head>
+
 <meta charset="UTF-8">
+
 <title>SignUp Page</title>
 
 <link rel="stylesheet"
@@ -9,6 +11,7 @@
 href="<%=request.getContextPath()%>/CSS/signupCSS.css">
 
 <link rel="stylesheet"
+
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 </head>

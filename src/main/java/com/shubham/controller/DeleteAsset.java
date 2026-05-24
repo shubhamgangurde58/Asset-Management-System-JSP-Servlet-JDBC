@@ -18,9 +18,7 @@ public class DeleteAsset extends HttpServlet{
 
 		try {
 
-			PreparedStatement pstmt =
-			DBConnection.getConnection().prepareStatement(
-			"delete from assets where id=?");
+			PreparedStatement pstmt = DBConnection.getConnection().prepareStatement("delete from assets where id=?");
 
 			pstmt.setInt(1, Integer.parseInt(id));
 
@@ -30,7 +28,7 @@ public class DeleteAsset extends HttpServlet{
 
 				System.out.println("Asset Deleted Successfully");
 
-				response.sendRedirect("DashboardPage.jsp");
+				response.sendRedirect("ViewAsset.jsp");
 
 			}else{
 

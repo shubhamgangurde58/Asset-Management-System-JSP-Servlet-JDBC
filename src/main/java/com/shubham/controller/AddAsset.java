@@ -20,13 +20,25 @@ public class AddAsset  extends HttpServlet {
 		
 		String assetName = request.getParameter("assetName");
 		
+		
 		String category = request.getParameter("category");
+		
 		
 		double price = Double.parseDouble(request.getParameter("price"));
 		
+		
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		
+		
 		String purchaseDate = request.getParameter("purchaseDate");
+		
+		
+		if(assetName == null || assetName.isEmpty() || category == null || category.isEmpty() || price <= 0 || quantity <= 0){
+
+					response.getWriter().println("<script>alert('Invalid Input Data');" + "window.location='AddAsset.jsp';</script>");
+
+			return;
+		}
 		
 		
 		
@@ -37,9 +49,13 @@ public class AddAsset  extends HttpServlet {
 				PreparedStatement  pstmt  = DBConnection.getConnection().prepareStatement(query);
 				
 				pstmt.setString(1,assetName);
+				
 				pstmt.setString(2,category);
+				
 				pstmt.setDouble(3,price);
+				
 				pstmt.setInt(4, quantity);
+				
 				pstmt.setString(5,purchaseDate);
 				
 				int i = pstmt.executeUpdate();
@@ -56,6 +72,7 @@ public class AddAsset  extends HttpServlet {
 					out.println("</script>");
 					System.out.println("Asset Added Successfully ! ");
 					
+					
 				}else {
 					
 					System.out.println("Asset Not Added");
@@ -66,6 +83,7 @@ public class AddAsset  extends HttpServlet {
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
+			
 			System.out.println("ERROR in Connection "+e.getMessage());
 		}	
 		
