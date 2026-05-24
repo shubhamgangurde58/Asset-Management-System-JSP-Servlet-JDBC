@@ -32,9 +32,11 @@ public class SignUpServlet extends HttpServlet{
 					
 					int i = stmt.executeUpdate(query);
 					
+					
 					if(i > 0) {
 						
 						System.out.println("Registration Successful !");
+						
 						response.getWriter().println(
 								"<script>alert('SignUp Successfully!');"
 								+ "window.location='LoginPage.jsp';</script>");
